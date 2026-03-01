@@ -102,8 +102,34 @@ body {
   background: var(--gold-grad); color: #000;
   box-shadow: 0 0 20px rgba(201,168,76,0.4);
 }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
 .hamburger span { display: block; width: 24px; height: 1px; background: var(--gold-2); transition: all 0.3s; }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.97);
+  display: none;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 32px; z-index: 1100;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.4rem; letter-spacing: 0.1em;
+  color: rgba(232,224,208,0.8); text-decoration: none;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--gold-2); }
+.mobile-close {
+  position: absolute; top: 20px; right: 20px;
+  font-size: 1.8rem; cursor: pointer; color: var(--gold-1);
+  background: none; border: none; font-family: 'Playfair Display', serif;
+  font-weight: 700; line-height: 1;
+  padding: 8px 12px;
+  z-index: 1200;
+}
 
 /* ===== PARTICLES CANVAS ===== */
 #particles-canvas {
@@ -140,8 +166,7 @@ section { position: relative; overflow: hidden; }
   background: #000;
   padding: 120px 24px 80px;
 }
-/* ▼▼▼ hero-overlay, hero-bg 스타일은 유지하되 사용하지 않음 ▼▼▼ */
-.hero-content { position: relative; z-index: 2; max-width: 860px; }
+.hero-content { position: relative; z-index: 2; max-width: 860px; width: 100%; }
 
 /* Emblem */
 .hero-emblem {
@@ -211,17 +236,31 @@ section { position: relative; overflow: hidden; }
   color: rgba(232,224,208,0.55); letter-spacing: 0.03em;
   max-width: 600px; margin: 0 auto 36px;
 }
+
+/* ===== HERO TAGS — 모바일 최적화: 세 줄 세로 정렬 ===== */
 .hero-tags {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  justify-content: center; margin-bottom: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 44px;
+  width: 100%;
 }
 .hero-tag {
-  font-size: 0.78rem; letter-spacing: 0.08em;
-  padding: 8px 20px;
+  font-size: 0.82rem; letter-spacing: 0.06em;
+  padding: 10px 24px;
   border: var(--border-gold);
   color: var(--gold-2);
   background: rgba(201,168,76,0.05);
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
+
 .hero-cta-wrap { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
 /* BUTTONS */
@@ -303,15 +342,14 @@ section { position: relative; overflow: hidden; }
   text-transform: uppercase;
 }
 
-/* ===== SECTION 1 — 회사소개 ===== */
-#about {
-  padding: 120px 24px;
-  background: var(--dark-3);
-}
+/* ===== SECTION LABEL — 모바일 줄바꿈 개선 ===== */
 .section-label {
   font-family: 'Playfair Display', serif;
-  font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gold-1); margin-bottom: 16px; display: block;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.6;
 }
 .section-title {
   font-family: 'Noto Serif KR', serif;
@@ -322,6 +360,12 @@ section { position: relative; overflow: hidden; }
 .section-sub {
   font-size: 0.93rem; color: rgba(232,224,208,0.55);
   letter-spacing: 0.03em; line-height: 1.9;
+}
+
+/* ===== SECTION 1 — ABOUT ===== */
+#about {
+  padding: 120px 24px;
+  background: var(--dark-3);
 }
 .about-header { text-align: center; max-width: 600px; margin: 0 auto 70px; }
 .pain-grid {
@@ -516,19 +560,6 @@ section { position: relative; overflow: hidden; }
   align-items: center; text-align: center; padding: 0 16px;
   position: relative; z-index: 2;
 }
-.step-number {
-  width: 72px; height: 72px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-1);
-  display: flex; align-items: center; justify-content: center;
-  background: var(--dark-3);
-  margin-bottom: 24px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 700;
-  background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  position: relative;
-  transition: all 0.35s;
-}
 .step-number-wrap {
   width: 72px; height: 72px;
   border-radius: 50%; background: var(--dark-3);
@@ -660,11 +691,12 @@ section { position: relative; overflow: hidden; }
   position: absolute; inset: 0;
   background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 65%);
 }
-.final-cta-inner { position: relative; z-index: 2; max-width: 720px; }
+.final-cta-inner { position: relative; z-index: 2; max-width: 720px; width: 100%; }
 .final-cta-label {
   font-family: 'Playfair Display', serif;
-  font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gold-1); margin-bottom: 40px; display: block;
+  word-break: break-word; white-space: normal; line-height: 1.8;
 }
 .final-cta-main {
   font-family: 'Noto Serif KR', serif;
@@ -677,7 +709,7 @@ section { position: relative; overflow: hidden; }
   background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   font-weight: 600; margin-bottom: 48px;
 }
-.final-cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+.final-cta-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
 .final-cta-disclaimer {
   max-width: 620px; margin: 0 auto;
   font-size: 0.75rem; line-height: 1.9; letter-spacing: 0.03em;
@@ -685,7 +717,6 @@ section { position: relative; overflow: hidden; }
   padding-top: 40px;
   border-top: 1px solid rgba(201,168,76,0.15);
 }
-
 
 /* ===== SECTION VISIT ===== */
 #visit-intro {
@@ -716,6 +747,15 @@ section { position: relative; overflow: hidden; }
   font-size: 0.95rem; line-height: 2; letter-spacing: 0.04em;
   color: rgba(232,224,208,0.55); max-width: 580px; margin: 0 auto 36px;
 }
+
+/* ===== Visit section label — 모바일 줄바꿈 ===== */
+.vi-eyebrow {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold-1); margin-bottom: 16px; display: block;
+  word-break: break-word; white-space: normal; line-height: 1.7;
+}
+
 .vi-cards {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 2px; margin-bottom: 80px;
@@ -799,8 +839,9 @@ section { position: relative; overflow: hidden; }
 }
 .vi-cta-eyebrow {
   font-family: 'Playfair Display', serif;
-  font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold-1); margin-bottom: 20px; display: block;
+  word-break: break-word; white-space: normal; line-height: 1.7;
 }
 .vi-cta-main {
   font-family: 'Noto Serif KR', serif;
@@ -836,11 +877,6 @@ section { position: relative; overflow: hidden; }
   margin-top: 20px; font-size: 0.75rem;
   color: rgba(232,224,208,0.3); letter-spacing: 0.06em;
   position: relative; z-index: 2;
-}
-@media (max-width: 768px) {
-  .vi-cards { grid-template-columns: 1fr; gap: 16px; }
-  .vi-quote-block { padding: 40px 24px; }
-  .vi-cta-block { padding: 48px 20px; }
 }
 
 /* ===== FOOTER ===== */
@@ -883,52 +919,6 @@ footer {
   pointer-events: none;
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
-@media (max-width: 768px) {
-  #navbar { padding: 16px 20px; }
-  .nav-links, .nav-cta-wrap { display: none; }
-  .hamburger { display: flex; }
-  .mobile-menu {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.97);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 32px; z-index: 999; opacity: 0; pointer-events: none;
-    transition: opacity 0.4s;
-  }
-  .mobile-menu.open { opacity: 1; pointer-events: all; }
-  .mobile-menu a {
-    font-family: 'Noto Serif KR', serif;
-    font-size: 1.4rem; letter-spacing: 0.1em;
-    color: rgba(232,224,208,0.8); text-decoration: none;
-    transition: color 0.3s;
-  }
-  .mobile-menu a:hover { color: var(--gold-2); }
-  .mobile-close {
-    position: absolute; top: 20px; right: 20px;
-    font-size: 1.5rem; cursor: pointer; color: var(--gold-1);
-    background: none; border: none; font-family: 'Playfair Display', serif;
-  }
-  .pain-grid { grid-template-columns: 1fr; gap: 16px; }
-  .plan-inner { grid-template-columns: 1fr; gap: 40px; }
-  .plan-left { position: static; }
-  .transparency-grid { grid-template-columns: 1fr; }
-  .steps-wrap {
-    flex-direction: column; align-items: stretch;
-    gap: 32px;
-  }
-  .steps-wrap::before { display: none; }
-  .step-item { flex-direction: row; text-align: left; align-items: flex-start; gap: 20px; }
-  .step-number-wrap { min-width: 56px; width: 56px; height: 56px; margin-bottom: 0; }
-  .step-content { flex: 1; }
-  .hero-cta-wrap { flex-direction: column; align-items: center; }
-  .btn-gold, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
-  .hero-emblem { width: 90px; height: 90px; }
-  .philosophy-bg-quote { font-size: 10rem; }
-  #philosophy { padding: 80px 24px; }
-  #hero { padding: 100px 20px 60px; }
-}
-
 /* ===== GLITTER STARS ===== */
 .star-field {
   position: absolute; inset: 0; overflow: hidden;
@@ -959,12 +949,6 @@ footer {
   opacity: 0;
 }
 
-/* ===== NUMBER COUNTER ANIMATION ===== */
-@keyframes count-in {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
 /* ===== PLAN B STARS ===== */
 .plan-b-badge {
   display: inline-flex; align-items: center; gap: 10px;
@@ -985,6 +969,129 @@ footer {
 .fancy-hr-line { flex: 1; height: 1px; background: var(--gold-grad); }
 .fancy-hr-sym { color: var(--gold-2); font-size: 0.7rem; }
 
+/* =====================================================
+   ★ MOBILE RESPONSIVE — 전면 개선
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* NAV */
+  #navbar { padding: 16px 20px; }
+  .nav-links, .nav-cta-wrap { display: none; }
+  .hamburger { display: flex; }
+
+  /* HERO */
+  #hero { padding: 100px 20px 60px; }
+  .hero-emblem { width: 90px; height: 90px; }
+  .hero-sub-label { font-size: 0.68rem; letter-spacing: 0.2em; }
+  .hero-copy-sub { font-size: 0.85rem; }
+
+  /* Hero tags: 세로 3줄, 풀 width */
+  .hero-tags { gap: 10px; align-items: center; }
+  .hero-tag {
+    font-size: 0.8rem;
+    max-width: 280px;
+    padding: 11px 20px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Hero CTA */
+  .hero-cta-wrap { flex-direction: column; align-items: center; }
+  .btn-gold, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
+
+  /* ABOUT grid */
+  .pain-grid { grid-template-columns: 1fr; gap: 16px; }
+  .pain-card { padding: 36px 24px; }
+
+  /* PLAN */
+  .plan-inner { grid-template-columns: 1fr; gap: 40px; }
+  .plan-left { position: static; }
+  .plan-section { padding: 80px 20px; }
+
+  /* TRANSPARENCY */
+  .transparency-grid { grid-template-columns: 1fr; }
+
+  /* STEPS */
+  .steps-wrap {
+    flex-direction: column; align-items: stretch;
+    gap: 32px;
+  }
+  .steps-wrap::before { display: none; }
+  .step-item { flex-direction: row; text-align: left; align-items: flex-start; gap: 20px; }
+  .step-number-wrap { min-width: 56px; width: 56px; height: 56px; margin-bottom: 0; }
+  .step-content { flex: 1; }
+
+  /* PHILOSOPHY */
+  .philosophy-bg-quote { font-size: 10rem; }
+  #philosophy { padding: 80px 20px; }
+
+  /* VISIT */
+  .vi-cards { grid-template-columns: 1fr; gap: 16px; }
+  .vi-card { padding: 36px 24px; }
+  .vi-quote-block { padding: 40px 24px; }
+  .vi-cta-block { padding: 48px 20px; }
+
+  /* Section labels: 긴 영문 라벨 줄바꿈 */
+  .section-label,
+  .vi-cta-eyebrow,
+  .vi-eyebrow,
+  .final-cta-label,
+  .plan-name,
+  .step-name {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.7;
+  }
+
+  /* FAQ */
+  .faq-question { padding: 20px 20px; }
+  .faq-answer { padding: 0 20px; }
+  .faq-item.open .faq-answer { padding: 0 20px 24px; }
+  .faq-q-text { font-size: 0.9rem; }
+
+  /* FINAL CTA */
+  #final-cta { padding: 80px 20px; }
+  .final-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .final-cta-buttons .btn-gold {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    padding: 16px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* CTA features wrap */
+  .vi-cta-features { gap: 10px; }
+  .vi-cta-feature { font-size: 0.75rem; padding: 8px 14px; }
+
+  /* VI btn wrap */
+  .vi-btn-wrap { flex-direction: column; align-items: center; }
+  .vi-btn-wrap .btn-gold,
+  .vi-btn-wrap .btn-outline {
+    width: 100%; max-width: 280px; text-align: center;
+  }
+
+  /* General section padding */
+  #about { padding: 80px 20px; }
+  #intro { padding: 80px 20px; }
+  #visit-intro { padding: 80px 20px; }
+  #faq { padding: 80px 20px; }
+  #process { padding: 80px 20px; }
+
+  /* intro badge 줄바꿈 */
+  .intro-badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 12px 20px;
+    word-break: keep-all;
+    line-height: 1.7;
+    white-space: normal;
+  }
+}
 </style>
 </head>
 <body>
@@ -999,29 +1106,26 @@ footer {
     <li><a href="#process">Process</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="mobileClose" onclick="closeMobile()">X</button>
-  <a href="#about" onclick="closeMobile()">Insight</a>
-  <a href="#plan-a" onclick="closeMobile()">Signature</a>
-  <a href="#plan-b" onclick="closeMobile()">Black</a>
-  <a href="#process" onclick="closeMobile()">Process</a>
-  <a href="#faq" onclick="closeMobile()">FAQ</a>
-  <a href="#final-cta" onclick="closeMobile()">상담문의</a>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+  <button class="mobile-close" id="mobileClose" aria-label="메뉴 닫기">✕</button>
+  <a href="#about" class="mobile-nav-link">Insight</a>
+  <a href="#plan-a" class="mobile-nav-link">Signature</a>
+  <a href="#plan-b" class="mobile-nav-link">Black</a>
+  <a href="#process" class="mobile-nav-link">Process</a>
+  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="#final-cta" class="mobile-nav-link">상담문의</a>
 </div>
 
 <!-- ===================== -->
 <!-- SECTION 0 — HERO      -->
-<!-- ✅ hero-overlay, hero-bg 제거 → heroParticles (떠오르는 파티클)로 교체 -->
 <!-- ===================== -->
 <section id="hero">
-
-  <!-- 🆕 떠오르는 골드 파티클 (인트로 섹션과 동일한 방식) -->
   <div id="heroParticles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;"></div>
 
   <div class="hero-content">
@@ -1048,10 +1152,11 @@ footer {
       정돈된 경험으로 바꿉니다.
     </p>
 
+    <!-- ★ 세 줄 세로 정렬 태그 -->
     <div class="hero-tags fade-up fade-up-delay-4">
       <div class="hero-tag">✦ 월정액 멤버십 플랜</div>
-      <div class="hero-tag">✦ 사용조건/재공범위</div>
-      <div class="hero-tag">✦ 사전예약/방문안내</div>
+      <div class="hero-tag">✦ 사용조건 / 제공범위</div>
+      <div class="hero-tag">✦ 사전예약 / 방문안내</div>
     </div>
   </div>
 </section>
@@ -1079,7 +1184,7 @@ footer {
     </p>
 
     <div class="intro-badge fade-up fade-up-delay-2">
-      현직 업계 최전선에서 VVIP를 구축한 독점적 프리미엄 플랫폼
+      현직 업계 최전선에서 VVIP를 구축한<br>독점적 프리미엄 플랫폼
     </div>
   </div>
 </section>
@@ -1201,7 +1306,8 @@ footer {
     </div>
 
     <div class="vi-cta-block fade-up">
-      <span class="vi-cta-eyebrow">General Visit · No Commitment Required</span>
+      <!-- ★ 긴 영문 라벨: 두 줄로 자연스럽게 나뉘도록 개행 -->
+      <span class="vi-cta-eyebrow">General Visit<br>No Commitment Required</span>
       <h3 class="vi-cta-main">
         강남 쩜오,<br>
         <span class="gold-text">오늘 밤 방문해보세요.</span>
@@ -1469,7 +1575,7 @@ footer {
   <div class="star-field" id="ctaStars"></div>
 
   <div class="final-cta-inner">
-    <span class="final-cta-label fade-up">The Standard OfGangnam · Premium Membership</span>
+    <span class="final-cta-label fade-up">The Standard Of Gangnam<br>Premium Membership</span>
 
     <div class="deco-line-set fade-in" style="margin-bottom:40px">
       <div class="deco-line"></div>
@@ -1524,146 +1630,137 @@ footer {
   <p class="footer-text">© 2026 강남 프리미엄 멤버십. All Rights Reserved.</p>
 </footer>
 
-<!-- ===== JAVASCRIPT ===== -->
+<!-- ===== JAVASCRIPT (통합 단일 블록) ===== -->
 <script>
-/* ─── NAVBAR SCROLL ─── */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) navbar.classList.add('scrolled');
-  else navbar.classList.remove('scrolled');
-}, { passive: true });
+(function() {
+  'use strict';
 
-/* ─── HAMBURGER ─── */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.getElementById('mobileClose');
-hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
-mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-function closeMobile() { mobileMenu.classList.remove('open'); }
+  /* ─── NAVBAR SCROLL ─── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  }, { passive: true });
 
-/* ─── INTERSECTION OBSERVER FADE ─── */
-const fadeEls = document.querySelectorAll('.fade-up, .fade-in');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-fadeEls.forEach(el => observer.observe(el));
-
-/* ─── FAQ ACCORDION ─── */
-function toggleFaq(el) {
-  const item = el.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
-
-/* ─── GENERATE TWINKLING STARS (CTA용) ─── */
-function createStars(containerId, count) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  for (let i = 0; i < count; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    const size = Math.random() * 2 + 0.5;
-    star.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      top: ${Math.random() * 100}%;
-      left: ${Math.random() * 100}%;
-      --dur: ${Math.random() * 4 + 2}s;
-      --delay: ${Math.random() * 5}s;
-      --opacity: ${Math.random() * 0.5 + 0.2};
-    `;
-    container.appendChild(star);
-  }
-}
-
-/* ─── GENERATE FLOATING PARTICLES (HERO + INTRO용) ─── */
-function createParticles(containerId, count) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  for (let i = 0; i < count; i++) {
-    const p = document.createElement('div');
-    p.classList.add('float-particle');
-    const size = Math.random() * 3 + 1;
-    p.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      bottom: ${Math.random() * -20}%;
-      left: ${Math.random() * 100}%;
-      --dur: ${Math.random() * 10 + 6}s;
-      --delay: ${Math.random() * 8}s;
-      --drift: ${(Math.random() - 0.5) * 80}px;
-      opacity: 0;
-    `;
-    container.appendChild(p);
-  }
-}
-
-/* ─── INIT ─── */
-// ✅ Hero: 트윙클 별 제거 → 떠오르는 파티클로 교체
-createParticles('heroParticles', 40);
-// ✅ Intro: 기존과 동일
-createParticles('introParticles', 20);
-// ✅ CTA: 트윙클 별 유지
-createStars('ctaStars', 60);
-
-/* ─── PARALLAX HERO (overlay 제거했으므로 비활성화) ─── */
-// heroOverlay 제거로 패럴랙스 코드 생략
-
-/* ─── SMOOTH SCROLL ─── */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
-</script>
- <script>
+  /* ─── MOBILE MENU ─── */
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   const mobileClose = document.getElementById('mobileClose');
 
-  // 메뉴 열기 (햄버거 버튼 클릭 시)
-  hamburger.addEventListener('click', () => {
-    mobileMenu.style.display = 'flex'; // 메뉴를 보이게 설정
-  });
-
-  // 메뉴 닫기 (X 버튼 클릭 시)
-  function closeMobile() {
-    mobileMenu.style.display = 'none'; // 메뉴를 숨김
+  function openMobile() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
-  // X 버튼에 직접 클릭 이벤트 연결
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ★ 햄버거 버튼 열기
+  hamburger.addEventListener('click', openMobile);
+
+  // ★ X 버튼 닫기 — 핵심 수정
   mobileClose.addEventListener('click', closeMobile);
+
+  // ★ 모바일 메뉴 링크 클릭 시 닫기
+  document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+    link.addEventListener('click', closeMobile);
+  });
+
+  // ★ 메뉴 바깥 영역 클릭 시 닫기
+  mobileMenu.addEventListener('click', function(e) {
+    if (e.target === mobileMenu) closeMobile();
+  });
+
+  // ★ ESC 키로 닫기
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMobile();
+    }
+  });
+
+  /* ─── INTERSECTION OBSERVER FADE ─── */
+  const fadeEls = document.querySelectorAll('.fade-up, .fade-in');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  /* ─── FAQ ACCORDION ─── */
+  window.toggleFaq = function(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  };
+
+  /* ─── GENERATE TWINKLING STARS ─── */
+  function createStars(containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 0.5;
+      star.style.cssText =
+        'width:' + size + 'px;' +
+        'height:' + size + 'px;' +
+        'top:' + (Math.random() * 100) + '%;' +
+        'left:' + (Math.random() * 100) + '%;' +
+        '--dur:' + (Math.random() * 4 + 2) + 's;' +
+        '--delay:' + (Math.random() * 5) + 's;' +
+        '--opacity:' + (Math.random() * 0.5 + 0.2) + ';';
+      container.appendChild(star);
+    }
+  }
+
+  /* ─── GENERATE FLOATING PARTICLES ─── */
+  function createParticles(containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.classList.add('float-particle');
+      const size = Math.random() * 3 + 1;
+      p.style.cssText =
+        'width:' + size + 'px;' +
+        'height:' + size + 'px;' +
+        'bottom:' + (Math.random() * -20) + '%;' +
+        'left:' + (Math.random() * 100) + '%;' +
+        '--dur:' + (Math.random() * 10 + 6) + 's;' +
+        '--delay:' + (Math.random() * 8) + 's;' +
+        '--drift:' + ((Math.random() - 0.5) * 80) + 'px;' +
+        'opacity:0;';
+      container.appendChild(p);
+    }
+  }
+
+  /* ─── INIT ─── */
+  createParticles('heroParticles', 40);
+  createParticles('introParticles', 20);
+  createStars('ctaStars', 60);
+
+  /* ─── SMOOTH SCROLL ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
 </script>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileClose = document.getElementById('mobileClose');
-
-    // 메뉴 열기
-    hamburger.addEventListener('click', () => {
-        mobileMenu.style.display = 'flex';
-    });
-
-    // 메뉴 닫기
-    mobileClose.addEventListener('click', () => {
-        mobileMenu.style.display = 'none';
-    });
-</script>
-
-</body>
-</html> 
 </body>
 </html>
