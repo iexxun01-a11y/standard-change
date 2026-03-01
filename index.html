@@ -1647,6 +1647,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   mobileClose.addEventListener('click', closeMobile);
 </script>
 
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    // 메뉴 열기
+    hamburger.addEventListener('click', () => {
+        mobileMenu.style.display = 'flex';
+    });
+
+    // 메뉴 닫기
+    mobileClose.addEventListener('click', () => {
+        mobileMenu.style.display = 'none';
+    });
+</script>
+
 </body>
 </html> 
 </body>
